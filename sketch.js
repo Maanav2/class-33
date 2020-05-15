@@ -81,20 +81,32 @@ function draw(){
 }
 
 function mouseDragged(){
-    //if (gameState!=="launched"){
+    if (gameState!=="launched"){
+      //  bird.trajectory=[];
         Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
-    //}
+        console.log(gameState);
+    }
 }
 
 
 function mouseReleased(){
     slingshot.fly();
     gameState = "launched";
+    console.log(gameState);
 }
 
 function keyPressed(){
-    if(keyCode === 32){
+    if(keyCode === 32 && bird.body.speed<6){
+        bird.trajectory.splice(0,bird.trajectory.length);
+       Matter.Body.setPosition(bird.body,{x:200,y:50});
+
+     
+
        slingshot.attach(bird.body);
+       console.log(bird.body.speed);
+       gameState="onSling";
+        console.log(gameState);
+      
     }
 }
 
